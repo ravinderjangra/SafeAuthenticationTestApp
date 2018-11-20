@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="SafeAuthenticationTestApp.View.PermissionPopUpPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White">
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="Select Permissions">
+                        <SwitchCell Text="Read" On="{Binding PermissionSet.Read}"/>
+                        <SwitchCell Text="Insert" On="{Binding PermissionSet.Insert}"/>
+                        <SwitchCell Text="Update" On="{Binding PermissionSet.Update}"/>
+                        <SwitchCell Text="Delete" On="{Binding PermissionSet.Delete}"/>
+                        <SwitchCell Text="ManagePermissions" On="{Binding PermissionSet.ManagePermissions}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button Text="Back" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>
