@@ -32,6 +32,7 @@ namespace SafeAuthenticationTestApp.iOS
                 {
                     try
                     {
+                        Debug.WriteLine($"IPC Response: {url.ToString()}");
                         await RequestService.ProcessResponseAsync(url.ToString());
                         Debug.WriteLine("IPC Msg Handling Completed");
                     }

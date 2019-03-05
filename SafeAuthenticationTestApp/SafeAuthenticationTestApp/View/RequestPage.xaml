@@ -18,8 +18,7 @@
                     Command="{Binding NavigateAuthPage}" 
                     IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}"/>
             <Button Text="Container Request"  
-                    Command="{Binding NavigateContainerPage}" 
-                    IsEnabled="{Binding IsSessionAvailable}"/>
+                    Command="{Binding NavigateContainerPage}"/>
             <Button Text="Share MData Request"  
                     Command="{Binding NavigateShareMDataPage}" 
                     IsEnabled="{Binding IsSessionAvailable}"/>

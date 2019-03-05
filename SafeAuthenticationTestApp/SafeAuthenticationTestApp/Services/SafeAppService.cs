@@ -32,12 +32,15 @@ namespace SafeAuthenticationTestApp.Services
         {
             _session = session;
             _isUnregistered = isUnregistered;
-            IsSessionAvailable = !isUnregistered;
+            IsSessionAvailable = true;
         }
 
         public async Task RefreshContainersAsync()
         {
-            await _session.AccessContainer.RefreshAccessInfoAsync();
+            if (_session != null)
+            {
+                await _session.AccessContainer.RefreshAccessInfoAsync();
+            }
         }
 
         public void ResetSession()

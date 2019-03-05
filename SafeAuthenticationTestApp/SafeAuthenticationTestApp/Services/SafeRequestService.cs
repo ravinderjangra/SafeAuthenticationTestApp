@@ -43,10 +43,6 @@ namespace SafeAuthenticationTestApp.Services
         {
             var formattedReqUrl = UrlFormat.Format(Constants.AppId, encodedRequest, true);
             Debug.WriteLine($"Encoded Req : {formattedReqUrl}");
-            if (isUnregistered)
-            {
-                formattedReqUrl += "/unregistered";
-            }
 
             Device.BeginInvokeOnMainThread(() => { Device.OpenUri(new Uri(formattedReqUrl)); });
         }
@@ -61,42 +57,34 @@ namespace SafeAuthenticationTestApp.Services
                 if (decodeResultType == typeof(AuthIpcMsg))
                 {
                     Debug.WriteLine("Received Auth Granted from Authenticator");
-                    // update auth progress message
-                    if (decodeResult is AuthIpcMsg ipcMsg)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Auth Request", $"Request granted", "OK");
-                        var session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
-                        DependencyService.Get<SafeAppService>().InitialiseSession(session, false);
-                        MessagingCenter.Send(this, "UpdateUI");
-                    }
+                    // Update auth progress message
+                    var ipcMsg = decodeResult as AuthIpcMsg;
+                    await Application.Current.MainPage.DisplayAlert("Auth Request", $"Request granted", "OK");
+                    var session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
+                    DependencyService.Get<SafeAppService>().InitialiseSession(session, false);
+                    MessagingCenter.Send(this, "UpdateUI");
                 }
                 else if (decodeResultType == typeof(ContainersIpcMsg))
                 {
-                    //Create session object
-                    if (decodeResult is ContainersIpcMsg ipcMsg)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Container Request", $"Request granted", "OK");
-                        await DependencyService.Get<SafeAppService>().RefreshContainersAsync();
-                    }
+                    // Get container response and refresh container
+                    var ipcMsg = decodeResult as ContainersIpcMsg;
+                    await Application.Current.MainPage.DisplayAlert("Container Request", $"Request granted", "OK");
+                    await DependencyService.Get<SafeAppService>().RefreshContainersAsync();
                 }
                 else if (decodeResultType == typeof(ShareMDataIpcMsg))
                 {
-                    //Create session object
-                    if (decodeResult is ShareMDataIpcMsg ipcMsg)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("ShareMData Request", $"Request granted", "OK");
-                    }
+                    // Get Share MData response
+                    var ipcMsg = decodeResult as ShareMDataIpcMsg;
+                    await Application.Current.MainPage.DisplayAlert("ShareMData Request", $"Request granted", "OK");
                 }
                 else if (decodeResultType == typeof(UnregisteredIpcMsg))
                 {
                     //Create session object
-                    if (decodeResult is UnregisteredIpcMsg ipcMsg)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Unregistred Request", $"Request granted", "OK");
-                        var session = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
-                        DependencyService.Get<SafeAppService>().InitialiseSession(session, true);
-                        MessagingCenter.Send(this, "UpdateUI");
-                    }
+                    var ipcMsg = decodeResult as UnregisteredIpcMsg;
+                    await Application.Current.MainPage.DisplayAlert("Unregistred Request", $"Request granted", "OK");
+                    var session = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
+                    DependencyService.Get<SafeAppService>().InitialiseSession(session, true);
+                    MessagingCenter.Send(this, "UpdateUI");
                 }
                 else
                 {
