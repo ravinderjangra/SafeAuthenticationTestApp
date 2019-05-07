@@ -51,6 +51,11 @@ namespace SafeAuthenticationTestApp.ViewModel
             _navigation = navigation;
             Title = $"Custom Request";
             InitialiseCommands();
+
+            if (Containers == null)
+            {
+                Containers = new ObservableCollection<ContainerPermissionsModel>();
+            }
         }
 
         private void InitialiseCommands()
@@ -86,10 +91,6 @@ namespace SafeAuthenticationTestApp.ViewModel
 
             AddContainerCommand = new Command(() =>
             {
-                if (Containers == null)
-                {
-                    Containers = new ObservableCollection<ContainerPermissionsModel>();
-                }
                 var newContainer = new ContainerPermissionsModel(string.Empty);
                 Containers.Add(newContainer);
                 _navigation.PushPopupAsync(new PermissionPopUpPage(ref newContainer, isCustomRequest: true));

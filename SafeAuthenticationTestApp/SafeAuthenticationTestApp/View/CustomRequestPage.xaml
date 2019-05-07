@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SafeAuthenticationTestApp.View.CustomRequestPage"
              xmlns:Converters="clr-namespace:SafeAuthenticationTestApp.Converters"
-             x:Name="AuthRequestPageRef"
+             x:Name="CustomRequestPageRef"
              Visual="Material"
              Title="{Binding Title}"
              Padding="20">
@@ -20,11 +20,11 @@
                 <Entry Placeholder="Vendor" Text="{Binding AppVendor}" PlaceholderColor="{StaticResource PrimaryColor}" />
                 <StackLayout Orientation="Horizontal" HeightRequest="30">
                     <Label Text="Is this a container Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsAppContainerRequest}" HorizontalOptions="End" VerticalOptions="Center" />
+                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsContainerRequest}" HorizontalOptions="End" VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HeightRequest="30">
                     <Label Text="Create app container: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch IsToggled="{Binding IsAppContainerRequest}"
+                    <Switch IsToggled="{Binding IsAppContainerRequested}"
                             HorizontalOptions="End"
                             VerticalOptions="Center"
                             IsEnabled="False">
@@ -77,7 +77,7 @@
                                     </Image.Triggers>
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer
-                                                            Command="{Binding Source={x:Reference AuthRequestPageRef}, Path=BindingContext.SetContainerPermission}"
+                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.SetContainerPermission}"
                                                             CommandParameter="{Binding .}"
                                                             NumberOfTapsRequired="1"/>
                                     </Image.GestureRecognizers>
