@@ -4,7 +4,7 @@ namespace SafeAuthenticationTestApp.Model
 {
     public class ContainerPermissionsModel : ObservableObject
     {
-        public string ContName { get; private set; }
+        public string ContName { get; set; }
 
         private bool isRequested;
 

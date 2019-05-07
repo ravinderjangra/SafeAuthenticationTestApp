@@ -5,27 +5,51 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SafeAuthenticationTestApp.ViewModel
 {
-    public class AuthRequestPageViewModel : BaseViewModel
+    public class CustomRequestPageViewModel : BaseViewModel
     {
+        private string appId;
+
+        public new string AppId
+        {
+            get { return appId; }
+            set { appId = value; }
+        }
+
+        private string appVendor;
+
+        public new string AppVendor
+        {
+            get { return appVendor; }
+            set { appVendor = value; }
+        }
+
+        private string appName;
+
+        public new string AppName
+        {
+            get { return appName; }
+            set { appName = value; }
+        }
+
         private INavigation _navigation;
-        public bool IsContainerRequest { get; }
+        public bool IsContainerRequest { get; set; }
         public bool IsAppContainerRequested { get; set; }
         public ICommand SetContainerPermission { get; private set; }
         public ICommand SendRequest { get; private set; }
+        public ICommand AddContainerCommand { get; private set; }
 
         public ObservableCollection<ContainerPermissionsModel> Containers { get; set; }
 
-        public AuthRequestPageViewModel(INavigation navigation, bool isContainerRequest)
+        public CustomRequestPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
-            IsContainerRequest = isContainerRequest;
-            Title = $"{ (isContainerRequest ? "Container" : "Authentication")} Request";
-            AddDefaultContainers();
+            Title = $"Custom Request";
             InitialiseCommands();
         }
 
@@ -33,7 +57,7 @@ namespace SafeAuthenticationTestApp.ViewModel
         {
             SetContainerPermission = new Command<ContainerPermissionsModel>((container) =>
             {
-                _navigation.PushPopupAsync(new PermissionPopUpPage(ref container, isCustomRequest: false));
+                _navigation.PushPopupAsync(new PermissionPopUpPage(ref container, isCustomRequest: true));
             });
 
             SendRequest = new Command(async () =>
@@ -56,24 +80,20 @@ namespace SafeAuthenticationTestApp.ViewModel
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Error : {ex.Message}");
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
                 }
             });
-        }
 
-        private void AddDefaultContainers()
-        {
-            if (Containers == null)
+            AddContainerCommand = new Command(() =>
             {
-                Containers = new ObservableCollection<ContainerPermissionsModel>();
-            }
-
-            Containers.Add(new ContainerPermissionsModel("_documents"));
-            Containers.Add(new ContainerPermissionsModel("_downloads"));
-            Containers.Add(new ContainerPermissionsModel("_music"));
-            Containers.Add(new ContainerPermissionsModel("_pictures"));
-            Containers.Add(new ContainerPermissionsModel("_videos"));
-            Containers.Add(new ContainerPermissionsModel("_public"));
-            Containers.Add(new ContainerPermissionsModel("_publicNames"));
+                if (Containers == null)
+                {
+                    Containers = new ObservableCollection<ContainerPermissionsModel>();
+                }
+                var newContainer = new ContainerPermissionsModel(string.Empty);
+                Containers.Add(newContainer);
+                _navigation.PushPopupAsync(new PermissionPopUpPage(ref newContainer, isCustomRequest: true));
+            });
         }
     }
 }

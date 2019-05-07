@@ -45,7 +45,7 @@ namespace SafeAuthenticationTestApp.Services
 
         public void ResetSession()
         {
-            _session.Dispose();
+            _session?.Dispose();
             _session = null;
             IsSessionAvailable = false;
         }

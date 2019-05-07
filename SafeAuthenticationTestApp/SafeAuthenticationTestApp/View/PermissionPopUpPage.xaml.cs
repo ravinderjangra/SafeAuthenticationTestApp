@@ -9,7 +9,18 @@ namespace SafeAuthenticationTestApp.View
     public partial class PermissionPopUpPage : PopupPage
     {
         private PermissionPopUpPageViewModel _viewModel;
+        private ContainerPermissionsModel _ContainerPermissionSet;
         private PermissionSetModel _permissionSet;
+        private bool? _isCustomRequest;
+        public PermissionPopUpPage(ref ContainerPermissionsModel containerPermissionSet, bool isCustomRequest)
+        {
+            InitializeComponent();
+            _isCustomRequest = isCustomRequest;
+            _ContainerPermissionSet = containerPermissionSet;
+            CloseWhenBackgroundIsClicked = false;
+            IsAnimationEnabled = true;
+        }
+
         public PermissionPopUpPage(ref PermissionSetModel permissionSet)
         {
             InitializeComponent();
@@ -24,7 +35,10 @@ namespace SafeAuthenticationTestApp.View
 
             if (_viewModel == null)
             {
-                _viewModel = new PermissionPopUpPageViewModel(ref _permissionSet);
+                if (_isCustomRequest.HasValue && _isCustomRequest.Value == true)
+                    _viewModel = new PermissionPopUpPageViewModel(ref _ContainerPermissionSet, _isCustomRequest.Value);
+                else
+                    _viewModel = new PermissionPopUpPageViewModel(ref _permissionSet);
             }
 
             BindingContext = _viewModel;

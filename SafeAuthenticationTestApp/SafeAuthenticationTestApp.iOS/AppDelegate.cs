@@ -19,6 +19,7 @@ namespace SafeAuthenticationTestApp.iOS
         {
 
             Rg.Plugins.Popup.Popup.Init();
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             FormsMaterial.Init();
 

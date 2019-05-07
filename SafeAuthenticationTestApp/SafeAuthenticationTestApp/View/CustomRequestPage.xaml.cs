@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SafeAuthenticationTestApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,7 +16,7 @@ namespace SafeAuthenticationTestApp.View
     {
         public bool IsContainerRequest { get; private set; } = false;
 
-        private AuthRequestPageViewModel _viewModel;
+        private CustomRequestPageViewModel _viewModel;
 
         public CustomRequestPage([Optional]bool isConainerRequest)
         {
@@ -28,16 +29,10 @@ namespace SafeAuthenticationTestApp.View
             base.OnAppearing();
             if (_viewModel == null)
             {
-                _viewModel = new AuthRequestPageViewModel(Navigation, IsContainerRequest);
+                _viewModel = new CustomRequestPageViewModel(Navigation);
             }
 
             BindingContext = _viewModel;
-        }
-
-        private void UnSelect_ListView(object sender, ItemTappedEventArgs e)
-        {
-            if (e.Item == null) return;
-            ((ListView)sender).SelectedItem = null;
         }
     }
 }

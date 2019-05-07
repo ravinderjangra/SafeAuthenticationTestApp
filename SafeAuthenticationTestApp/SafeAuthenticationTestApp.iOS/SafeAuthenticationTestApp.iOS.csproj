@@ -174,4 +174,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\permissionOn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AddContainer.png" />
+  </ItemGroup>
 </Project>

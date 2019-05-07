@@ -5,66 +5,88 @@
              xmlns:Converters="clr-namespace:SafeAuthenticationTestApp.Converters"
              x:Name="AuthRequestPageRef"
              Visual="Material"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Padding="20">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout>
-                <Label Text="App Details" />
-                <Entry Placeholder="AppId" Text="{Binding AppId}" PlaceholderColor="{StaticResource PrimaryColor}"/>
-                <Entry Placeholder="App Name" Text="{Binding AppName}" PlaceholderColor="{StaticResource PrimaryColor}"/>
-                <Entry Placeholder="Vendor" Text="{Binding AppVendor}" PlaceholderColor="{StaticResource PrimaryColor}"/>
+            <StackLayout Spacing="10">
+                <Entry Placeholder="AppId" Text="{Binding AppId}" PlaceholderColor="{StaticResource PrimaryColor}" />
+                <Entry Placeholder="App Name" Text="{Binding AppName}" PlaceholderColor="{StaticResource PrimaryColor}" />
+                <Entry Placeholder="Vendor" Text="{Binding AppVendor}" PlaceholderColor="{StaticResource PrimaryColor}" />
+                <StackLayout Orientation="Horizontal" HeightRequest="30">
+                    <Label Text="Is this a container Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsAppContainerRequest}" HorizontalOptions="End" VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HeightRequest="30">
+                    <Label Text="Create app container: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                    <Switch IsToggled="{Binding IsAppContainerRequest}"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            IsEnabled="False">
+                        <Switch.Triggers>
+                            <DataTrigger TargetType="Switch"
+                                         Binding="{Binding Source={x:Reference ContainerRequestSwitch},
+                                       Path=IsToggled}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
+                </StackLayout>
             </StackLayout>
 
-            <TableView HasUnevenRows="True">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Containers"
+                       HeightRequest="20"
+                       FontSize="18"
+                       VerticalOptions="Center" />
+                <Image Source="AddContainer"
+                       HeightRequest="25"
+                       WidthRequest="25"
+                       VerticalOptions="Center"
+                       HorizontalOptions="EndAndExpand">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddContainerCommand}"
+                                              NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
 
-                <TableRoot>
-                    <TableSection Title="App Container">
-                        <SwitchCell Text="App Container" 
-                                    On="{Binding IsAppContainerRequested}"
-                                    IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}"/>
-                    </TableSection>
-
-                    <TableSection Title="Containers">
+            <ListView ItemsSource="{Binding Containers}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
                         <ViewCell>
-                            <ListView ItemsSource="{Binding Containers}" ItemTapped="UnSelect_ListView">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <Grid Padding="20, 0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="7*"/>
-                                                    <ColumnDefinition Width="2*"/>
-                                                    <ColumnDefinition Width="1*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding ContName}" VerticalTextAlignment="Center"/>
-                                                <Switch Grid.Column="1" IsToggled="{Binding IsRequested}"/>
-                                                <Image Grid.Column="2" IsEnabled="{Binding IsRequested}" Source="permissionOff">
-                                                    <Image.Triggers>
-                                                        <DataTrigger Binding="{Binding IsRequested}" Value="True" TargetType="Image">
-                                                            <Setter Property="Source" Value="permissionOn"/>
-                                                        </DataTrigger>
-                                                    </Image.Triggers>
-                                                    <Image.GestureRecognizers>
-                                                        <TapGestureRecognizer
+                            <Grid Padding="20, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="7*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding ContName}" VerticalTextAlignment="Center"/>
+                                <Switch Grid.Column="1" IsToggled="{Binding IsRequested}"/>
+                                <Image Grid.Column="2" IsEnabled="{Binding IsRequested}" Source="permissionOff">
+                                    <Image.Triggers>
+                                        <DataTrigger Binding="{Binding IsRequested}" Value="True" TargetType="Image">
+                                            <Setter Property="Source" Value="permissionOn"/>
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
                                                             Command="{Binding Source={x:Reference AuthRequestPageRef}, Path=BindingContext.SetContainerPermission}"
-                                                            CommandParameter="{Binding Access}"
+                                                            CommandParameter="{Binding .}"
                                                             NumberOfTapsRequired="1"/>
-                                                    </Image.GestureRecognizers>
-                                                </Image>
-                                            </Grid>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
                         </ViewCell>
-                    </TableSection>
-                </TableRoot>
-            </TableView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <Button HorizontalOptions="FillAndExpand" Text="{Binding Title, StringFormat='Send {0}'}" Command="{Binding SendRequest}"/>
         </StackLayout>

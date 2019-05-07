@@ -31,6 +31,7 @@ namespace SafeAuthenticationTestApp.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
             base.OnCreate(savedInstanceState);
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
 

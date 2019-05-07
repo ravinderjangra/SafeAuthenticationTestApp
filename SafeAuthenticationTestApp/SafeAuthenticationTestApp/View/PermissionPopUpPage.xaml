@@ -6,6 +6,12 @@
                  Visual="Material">
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White">
+
+            <Entry IsEnabled="{Binding IsCustomRequest}"
+                   Placeholder="Container name"
+                   Text="{Binding ContainerName}"
+                   IsVisible="{Binding IsCustomRequest}"/>
+
             <TableView>
                 <TableRoot>
                     <TableSection Title="Select Permissions">

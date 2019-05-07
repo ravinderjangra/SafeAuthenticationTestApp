@@ -22,6 +22,9 @@
     <EmbeddedResource Update="View\AuthRequestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\CustomRequestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\PermissionPopUpPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -38,6 +41,9 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="View\AuthRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\CustomRequestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="View\PermissionPopUpPage.xaml">
