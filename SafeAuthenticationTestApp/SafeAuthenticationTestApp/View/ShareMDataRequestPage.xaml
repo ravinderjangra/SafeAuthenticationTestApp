@@ -4,6 +4,7 @@
              x:Class="SafeAuthenticationTestApp.View.ShareMDataRequestPage"
              xmlns:Converters="clr-namespace:SafeAuthenticationTestApp.Converters"
              x:Name="ShareMDataRequestPageRef"
+             Visual="Material"
              Title="Share MData Request">
     <ContentPage.Resources>
         <ResourceDictionary>

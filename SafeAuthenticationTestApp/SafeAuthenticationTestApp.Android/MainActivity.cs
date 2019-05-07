@@ -32,6 +32,8 @@ namespace SafeAuthenticationTestApp.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            FormsMaterial.Init(this, savedInstanceState);
+
             LoadApplication(new App());
             
             if (Intent?.Data != null)

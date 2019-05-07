@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SafeAuthenticationTestApp.View.RequestPage"
              xmlns:Converters="clr-namespace:SafeAuthenticationTestApp.Converters"
+             Visual="Material"
              Title="Authenticator Request Test App">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -14,6 +15,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Padding="20" Spacing="10">
+            <Button Text="Custom Request"  
+                    Command="{Binding NavigateCustomRequestPage}"/>
             <Button Text="Authentication Request" 
                     Command="{Binding NavigateAuthPage}" 
                     IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}"/>

@@ -20,6 +20,8 @@ namespace SafeAuthenticationTestApp.iOS
 
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
+            FormsMaterial.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
