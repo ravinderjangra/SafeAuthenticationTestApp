@@ -34,5 +34,11 @@ namespace SafeAuthenticationTestApp.View
 
             BindingContext = _viewModel;
         }
+
+        private void UnSelect_ListView(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item == null) return;
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }
