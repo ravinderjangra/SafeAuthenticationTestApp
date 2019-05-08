@@ -16,7 +16,7 @@ namespace SafeAuthenticationTestApp.Helpers
         {
             var containerReq = new ContainersReq
             {
-                App = appExchangeInfo.Name == string.Empty ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
+                App = string.IsNullOrWhiteSpace(appExchangeInfo.Name) ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
                 Containers = new List<ContainerPermissions>()
             };
 
@@ -49,7 +49,7 @@ namespace SafeAuthenticationTestApp.Helpers
         {
             var authReq = new AuthReq
             {
-                App = appExchangeInfo.Name == string.Empty ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
+                App = string.IsNullOrWhiteSpace(appExchangeInfo.Name) ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
                 Containers = new List<ContainerPermissions>()
             };
 

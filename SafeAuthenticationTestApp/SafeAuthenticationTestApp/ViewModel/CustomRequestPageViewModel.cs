@@ -95,7 +95,10 @@ namespace SafeAuthenticationTestApp.ViewModel
 
             AddContainerCommand = new Command(() =>
             {
-                var newContainer = new ContainerPermissionsModel(string.Empty);
+                var newContainer = new ContainerPermissionsModel(string.Empty)
+                {
+                    IsRequested = true
+                };
                 Containers.Add(newContainer);
                 _navigation.PushPopupAsync(new PermissionPopUpPage(ref newContainer, isCustomRequest: true));
             });
