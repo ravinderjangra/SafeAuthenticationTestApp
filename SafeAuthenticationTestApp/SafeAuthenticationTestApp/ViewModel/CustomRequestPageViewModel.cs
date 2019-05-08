@@ -40,10 +40,10 @@ namespace SafeAuthenticationTestApp.ViewModel
         private INavigation _navigation;
         public bool IsContainerRequest { get; set; }
         public bool IsAppContainerRequested { get; set; }
-        public ICommand SetContainerPermission { get; private set; }
+        public ICommand AddContainerPermissioncommand { get; private set; }
+        public ICommand DeleteContainerPermissionCommand { get; private set; }
         public ICommand SendRequest { get; private set; }
         public ICommand AddContainerCommand { get; private set; }
-
         public ObservableCollection<ContainerPermissionsModel> Containers { get; set; }
 
         public CustomRequestPageViewModel(INavigation navigation)
@@ -60,9 +60,14 @@ namespace SafeAuthenticationTestApp.ViewModel
 
         private void InitialiseCommands()
         {
-            SetContainerPermission = new Command<ContainerPermissionsModel>((container) =>
+            AddContainerPermissioncommand = new Command<ContainerPermissionsModel>((container) =>
             {
                 _navigation.PushPopupAsync(new PermissionPopUpPage(ref container, isCustomRequest: true));
+            });
+
+            DeleteContainerPermissionCommand = new Command<ContainerPermissionsModel>((container) =>
+            {
+                Containers.Remove(container);
             });
 
             SendRequest = new Command(async () =>

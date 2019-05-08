@@ -4,14 +4,20 @@ namespace SafeAuthenticationTestApp.Model
 {
     public class ContainerPermissionsModel : ObservableObject
     {
-        public string ContName { get; set; }
+        private bool _isRequested;
 
-        private bool isRequested;
+        private string _contName;
+
+        public string ContName
+        {
+            get { return _contName; }
+            set { _contName = value; OnPropertyChanged(); }
+        }
 
         public bool IsRequested
         {
-            get { return isRequested; }
-            set { isRequested = value; OnPropertyChanged(); }
+            get { return _isRequested; }
+            set { _isRequested = value; OnPropertyChanged(); }
         }
 
         public PermissionSetModel Access { get; set; }

@@ -21,7 +21,7 @@
                     </TableSection>
 
                     <TableSection Title="App Container">
-                        <SwitchCell Text="App Container" 
+                        <SwitchCell Text="App Container"
                                     On="{Binding IsAppContainerRequested}"
                                     IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}"/>
                     </TableSection>

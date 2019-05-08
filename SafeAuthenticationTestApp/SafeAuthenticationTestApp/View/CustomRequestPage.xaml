@@ -10,6 +10,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="25" />
+                <Setter Property="WidthRequest" Value="25" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -46,10 +51,7 @@
                        FontSize="18"
                        VerticalOptions="Center" />
                 <Image Source="AddContainer"
-                       HeightRequest="25"
-                       WidthRequest="25"
-                       VerticalOptions="Center"
-                       HorizontalOptions="EndAndExpand">
+                       Style="{StaticResource ImageStyle}">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddContainerCommand}"
                                               NumberOfTapsRequired="1" />
@@ -57,27 +59,35 @@
                 </Image>
             </StackLayout>
 
-            <ListView ItemsSource="{Binding Containers}" HasUnevenRows="True">
+            <ListView ItemsSource="{Binding Containers}"
+                      HasUnevenRows="True"
+                      ItemTapped="UnSelect_ListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="20, 0">
+                            <Grid HeightRequest="35">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="7*"/>
-                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Text="{Binding ContName}" VerticalTextAlignment="Center"/>
-                                <Switch Grid.Column="1" IsToggled="{Binding IsRequested}"/>
-                                <Image Grid.Column="2" IsEnabled="{Binding IsRequested}" Source="permissionOff">
-                                    <Image.Triggers>
-                                        <DataTrigger Binding="{Binding IsRequested}" Value="True" TargetType="Image">
-                                            <Setter Property="Source" Value="permissionOn"/>
-                                        </DataTrigger>
-                                    </Image.Triggers>
+                                <Image Grid.Column="1"
+                                       Source="permissionOn"
+                                       Style="{StaticResource ImageStyle}">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer
-                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.SetContainerPermission}"
+                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.AddContainerPermissioncommand}"
+                                                            CommandParameter="{Binding .}"
+                                                            NumberOfTapsRequired="1"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Image Grid.Column="2"
+                                       Source="RemoveContainer"
+                                       Style="{StaticResource ImageStyle}">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.DeleteContainerPermissionCommand}"
                                                             CommandParameter="{Binding .}"
                                                             NumberOfTapsRequired="1"/>
                                     </Image.GestureRecognizers>
