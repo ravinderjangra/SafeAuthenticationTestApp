@@ -17,6 +17,7 @@ namespace SafeAuthenticationTestApp.View
             InitializeComponent();
             _isCustomRequest = isCustomRequest;
             _ContainerPermissionSet = containerPermissionSet;
+            _permissionSet = _ContainerPermissionSet.Access;
             CloseWhenBackgroundIsClicked = false;
             IsAnimationEnabled = true;
         }

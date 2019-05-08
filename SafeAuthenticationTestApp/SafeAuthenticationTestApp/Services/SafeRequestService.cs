@@ -9,21 +9,27 @@ using SafeApp.Utilities;
 using Constants = SafeAuthenticationTestApp.Helpers.AppConstants;
 using SafeAuthenticationTestApp.Model;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 [assembly: Dependency(typeof(SafeRequestService))]
 namespace SafeAuthenticationTestApp.Services
 {
     public class SafeRequestService : ISafeService
     {
-        public async Task<string> CreateAuthRequestAsync(bool isAppContainerRequested, List<ContainerPermissionsModel> containers)
+        public async Task<string> CreateAuthRequestAsync(
+            bool isAppContainerRequested,
+            List<ContainerPermissionsModel> containers,
+            [Optional] AppExchangeInfo appExchangeInfo)
         {
-            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedAuthRequest(isAppContainerRequested, containers);
+            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedAuthRequest(isAppContainerRequested, containers, appExchangeInfo);
             return encodedReq;
         }
 
-        public async Task<string> CreateContainerRequestAsync(List<ContainerPermissionsModel> containers)
+        public async Task<string> CreateContainerRequestAsync(
+            List<ContainerPermissionsModel> containers,
+            [Optional] AppExchangeInfo appExchangeInfo)
         {
-            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedContainerRequest(containers);
+            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedContainerRequest(containers, appExchangeInfo);
             return encodedReq;
         }
 

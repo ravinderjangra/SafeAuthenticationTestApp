@@ -2,6 +2,7 @@
 using SafeApp.Utilities;
 using SafeAuthenticationTestApp.Model;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Constants = SafeAuthenticationTestApp.Helpers.AppConstants;
 
@@ -9,11 +10,13 @@ namespace SafeAuthenticationTestApp.Helpers
 {
     internal class RequestHelper
     {
-        public static async Task<(uint, string)> GenerateEncodedContainerRequest(List<ContainerPermissionsModel> containers)
+        public static async Task<(uint, string)> GenerateEncodedContainerRequest(
+            List<ContainerPermissionsModel> containers,
+            [Optional] AppExchangeInfo appExchangeInfo)
         {
             var containerReq = new ContainersReq
             {
-                App = Utilities.GetAppExchangeInfo(),
+                App = appExchangeInfo.Name == string.Empty ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
                 Containers = new List<ContainerPermissions>()
             };
 
@@ -39,11 +42,14 @@ namespace SafeAuthenticationTestApp.Helpers
             return encodedContainerRequest;
         }
 
-        public static async Task<(uint, string)> GenerateEncodedAuthRequest(bool appContainerPermission, List<ContainerPermissionsModel> containers)
+        public static async Task<(uint, string)> GenerateEncodedAuthRequest(
+            bool appContainerPermission,
+            List<ContainerPermissionsModel> containers,
+            [Optional] AppExchangeInfo appExchangeInfo)
         {
             var authReq = new AuthReq
             {
-                App = Utilities.GetAppExchangeInfo(),
+                App = appExchangeInfo.Name == string.Empty ? Utilities.GetAppExchangeInfo() : appExchangeInfo,
                 Containers = new List<ContainerPermissions>()
             };
 

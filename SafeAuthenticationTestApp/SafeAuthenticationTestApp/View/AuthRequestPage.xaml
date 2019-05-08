@@ -49,7 +49,7 @@
                                                     <Image.GestureRecognizers>
                                                         <TapGestureRecognizer
                                                             Command="{Binding Source={x:Reference AuthRequestPageRef}, Path=BindingContext.SetContainerPermission}"
-                                                            CommandParameter="{Binding Access}"
+                                                            CommandParameter="{Binding .}"
                                                             NumberOfTapsRequired="1"/>
                                                     </Image.GestureRecognizers>
                                                 </Image>

@@ -20,9 +20,22 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Spacing="10">
-                <Entry Placeholder="AppId" Text="{Binding AppId}" PlaceholderColor="{StaticResource PrimaryColor}" />
-                <Entry Placeholder="App Name" Text="{Binding AppName}" PlaceholderColor="{StaticResource PrimaryColor}" />
-                <Entry Placeholder="Vendor" Text="{Binding AppVendor}" PlaceholderColor="{StaticResource PrimaryColor}" />
+                <StackLayout Orientation="Horizontal" HeightRequest="30">
+                    <Label Text="Use hardcoded app info: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                    <Switch IsToggled="{Binding UseStaticAppInfo}" HorizontalOptions="End" VerticalOptions="Center" />
+                </StackLayout>
+                <Entry Placeholder="AppId"
+                       Text="{Binding AppId}"
+                       PlaceholderColor="{StaticResource PrimaryColor}"
+                       IsReadOnly="{Binding UseStaticAppInfo}" />
+                <Entry Placeholder="App Name"
+                       Text="{Binding AppName}"
+                       PlaceholderColor="{StaticResource PrimaryColor}"
+                       IsReadOnly="{Binding UseStaticAppInfo}" />
+                <Entry Placeholder="Vendor"
+                       Text="{Binding AppVendor}"
+                       PlaceholderColor="{StaticResource PrimaryColor}"
+                       IsReadOnly="{Binding UseStaticAppInfo}" />
                 <StackLayout Orientation="Horizontal" HeightRequest="30">
                     <Label Text="Is this a container Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                     <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsContainerRequest}" HorizontalOptions="End" VerticalOptions="Center" />
@@ -98,7 +111,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button HorizontalOptions="FillAndExpand" Text="{Binding Title, StringFormat='Send {0}'}" Command="{Binding SendRequest}"/>
+            <Button HorizontalOptions="FillAndExpand" Text="{Binding Title, StringFormat='Send {0}'}" Command="{Binding SendRequestcommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
