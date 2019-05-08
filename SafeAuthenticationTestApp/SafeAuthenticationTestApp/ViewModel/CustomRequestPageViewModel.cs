@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -52,6 +53,12 @@ namespace SafeAuthenticationTestApp.ViewModel
                     AppName = AConstants.AppName;
                     AppId = AConstants.AppId;
                     AppVendor = AConstants.AppVendor;
+                }
+                else
+                {
+                    AppName = string.Empty;
+                    AppId = string.Empty;
+                    AppVendor = string.Empty;
                 }
                 _useStaticAppInfo = value;
                 OnPropertyChanged();
@@ -114,6 +121,10 @@ namespace SafeAuthenticationTestApp.ViewModel
                 var encodedRequest = string.Empty;
                 var containers = new List<ContainerPermissionsModel>(Containers);
                 var appExchangeInfo = new AppExchangeInfo { Id = AppId, Name = AppName, Vendor = AppVendor, Scope = string.Empty };
+
+                var invalidContainerNameCount = containers.Where(c => string.IsNullOrWhiteSpace(c.ContName)).ToList().Count;
+                if (invalidContainerNameCount > 0)
+                    throw new Exception($"{invalidContainerNameCount} container(s) have empty string as name. Please update container name to proceed.");
 
                 if (IsAuthRequest)
                 {
