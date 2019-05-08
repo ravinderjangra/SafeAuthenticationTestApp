@@ -59,7 +59,7 @@ namespace SafeAuthenticationTestApp.ViewModel
         }
 
         private INavigation _navigation;
-        public bool IsContainerRequest { get; set; }
+        public bool IsAuthRequest { get; set; }
         public bool IsAppContainerRequested { get; set; }
         public ICommand AddContainerPermissioncommand { get; private set; }
         public ICommand DeleteContainerPermissionCommand { get; private set; }
@@ -112,16 +112,16 @@ namespace SafeAuthenticationTestApp.ViewModel
                 var containers = new List<ContainerPermissionsModel>(Containers);
                 var appExchangeInfo = new AppExchangeInfo { Id = AppId, Name = AppName, Vendor = AppVendor, Scope = string.Empty };
 
-                if (IsContainerRequest)
+                if (IsAuthRequest)
+                {
+                    encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers, appExchangeInfo);
+                }
+                else
                 {
                     if (containers.Count == 0)
                         throw new Exception("Add one or more containers");
 
                     encodedRequest = await RequestService.CreateContainerRequestAsync(containers, appExchangeInfo);
-                }
-                else
-                {
-                    encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers, appExchangeInfo);
                 }
 
                 RequestService.SendRequest(encodedRequest, isUnregistered: false);

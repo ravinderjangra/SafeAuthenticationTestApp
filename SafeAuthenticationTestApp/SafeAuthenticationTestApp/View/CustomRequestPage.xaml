@@ -37,8 +37,8 @@
                        PlaceholderColor="{StaticResource PrimaryColor}"
                        IsReadOnly="{Binding UseStaticAppInfo}" />
                 <StackLayout Orientation="Horizontal" HeightRequest="30">
-                    <Label Text="Is this a container Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsContainerRequest}" HorizontalOptions="End" VerticalOptions="Center" />
+                    <Label Text="Is this a Auth Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsAuthRequest}" HorizontalOptions="End" VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HeightRequest="30">
                     <Label Text="Create app container: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
