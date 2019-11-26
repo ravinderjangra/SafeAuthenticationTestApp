@@ -1,4 +1,4 @@
-﻿using SafeApp.Utilities;
+﻿using SafeApp.Core;
 using SafeAuthenticationTestApp.Model;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -15,8 +15,6 @@ namespace SafeAuthenticationTestApp.Services
         Task<string> CreateContainerRequestAsync(
             List<ContainerPermissionsModel> containers,
             [Optional] AppExchangeInfo appExchangeInfo);
-
-        Task<string> CreateMDataShareRequestAsync(List<ShareMDataModel> shareMDataList);
 
         Task<string> CreateUnregisteredRequestAsync();
 

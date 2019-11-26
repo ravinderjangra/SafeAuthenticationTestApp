@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SafeAuthenticationTestApp.Helpers;
 using System.Diagnostics;
 using SafeApp;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using Constants = SafeAuthenticationTestApp.Helpers.AppConstants;
 using SafeAuthenticationTestApp.Model;
 using System.Collections.Generic;
@@ -30,12 +30,6 @@ namespace SafeAuthenticationTestApp.Services
             [Optional] AppExchangeInfo appExchangeInfo)
         {
             var (reqId, encodedReq) = await RequestHelper.GenerateEncodedContainerRequest(containers, appExchangeInfo);
-            return encodedReq;
-        }
-
-        public async Task<string> CreateMDataShareRequestAsync(List<ShareMDataModel> shareMDataList)
-        {
-            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedShareMDataRequest(shareMDataList);
             return encodedReq;
         }
 
@@ -66,7 +60,7 @@ namespace SafeAuthenticationTestApp.Services
                     // Update auth progress message
                     var ipcMsg = decodeResult as AuthIpcMsg;
                     await Application.Current.MainPage.DisplayAlert("Auth Request", $"Request granted", "OK");
-                    var session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
+                    var session = await Session.AppConnectAsync(Constants.AppId, encodedRequest);
                     DependencyService.Get<SafeAppService>().InitialiseSession(session, false);
                     MessagingCenter.Send(this, "UpdateUI");
                 }
@@ -75,7 +69,6 @@ namespace SafeAuthenticationTestApp.Services
                     // Get container response and refresh container
                     var ipcMsg = decodeResult as ContainersIpcMsg;
                     await Application.Current.MainPage.DisplayAlert("Container Request", $"Request granted", "OK");
-                    await DependencyService.Get<SafeAppService>().RefreshContainersAsync();
                 }
                 else if (decodeResultType == typeof(ShareMDataIpcMsg))
                 {
@@ -88,7 +81,7 @@ namespace SafeAuthenticationTestApp.Services
                     //Create session object
                     var ipcMsg = decodeResult as UnregisteredIpcMsg;
                     await Application.Current.MainPage.DisplayAlert("Unregistred Request", $"Request granted", "OK");
-                    var session = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
+                    var session = await Session.AppConnectUnregisteredAsync(encodedRequest);
                     DependencyService.Get<SafeAppService>().InitialiseSession(session, true);
                     MessagingCenter.Send(this, "UpdateUI");
                 }

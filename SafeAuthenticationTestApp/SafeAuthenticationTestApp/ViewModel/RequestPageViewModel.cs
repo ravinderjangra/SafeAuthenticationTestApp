@@ -11,7 +11,6 @@ namespace SafeAuthenticationTestApp.ViewModel
         private bool _isSessionAvailable;
         public ICommand NavigateAuthPage { get; private set; }
         public ICommand NavigateContainerPage { get; private set; }
-        public ICommand NavigateShareMDataPage { get; private set; }
         public ICommand NavigateCustomRequestPage { get; private set; }
         public ICommand ResetSessionCommand { get; private set; }
         public ICommand UnregisteredRequest { get; private set; }
@@ -57,11 +56,6 @@ namespace SafeAuthenticationTestApp.ViewModel
             NavigateCustomRequestPage = new Command(() =>
             {
                 _navigation.PushAsync(new CustomRequestPage());
-            });
-
-            NavigateShareMDataPage = new Command(() =>
-            {
-                _navigation.PushAsync(new ShareMDataRequestPage());
             });
 
             UnregisteredRequest = new Command(async () =>

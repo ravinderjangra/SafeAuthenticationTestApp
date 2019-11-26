@@ -1,5 +1,5 @@
 ﻿using SafeApp;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeAuthenticationTestApp.Model;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -74,35 +74,6 @@ namespace SafeAuthenticationTestApp.Helpers
             }
             var encodedAuthRequest = await Session.EncodeAuthReqAsync(authReq);
             return encodedAuthRequest;
-        }
-
-        public static async Task<(uint, string)> GenerateEncodedShareMDataRequest(List<ShareMDataModel> mDataList)
-        {
-            var shareMDataReq = new ShareMDataReq
-            {
-                App = Utilities.GetAppExchangeInfo(),
-                MData = new List<ShareMData>()
-            };
-
-            foreach (var item in mDataList)
-            {
-                shareMDataReq.MData.Add(new ShareMData()
-                {
-                    Name = item.Name,
-                    TypeTag = item.TypeTag,
-                    Perms = new PermissionSet
-                    {
-                        Read = item.Access.Read,
-                        Insert = item.Access.Insert,
-                        Delete = item.Access.Delete,
-                        Update = item.Access.Update,
-                        ManagePermissions = item.Access.ManagePermissions,
-                    }
-                });
-            }
-
-            var encodedShareMDataRequest = await Session.EncodeShareMDataRequestAsync(shareMDataReq);
-            return encodedShareMDataRequest;
         }
 
         public static async Task<(uint, string)> GenerateEncodedUnregisteredRequest()

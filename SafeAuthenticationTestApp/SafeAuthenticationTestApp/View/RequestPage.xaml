@@ -7,27 +7,25 @@
              Title="Authenticator Request Test App">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Remove Session" Command="{Binding ResetSessionCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Remove Session"
+                     Command="{Binding ResetSessionCommand}"
+                     Order="Secondary" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="10">
-            <Button Text="Custom Request"  
-                    Command="{Binding NavigateCustomRequestPage}"/>
-            <Button Text="Authentication Request" 
-                    Command="{Binding NavigateAuthPage}" 
-                    IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}"/>
-            <Button Text="Container Request"  
-                    Command="{Binding NavigateContainerPage}"/>
-            <Button Text="Share MData Request"  
-                    Command="{Binding NavigateShareMDataPage}" 
-                    IsEnabled="{Binding IsSessionAvailable}"/>
-            <Button Text="Unregistered Access Request" 
+        <StackLayout Padding="20"
+                     Spacing="10">
+            <Button Text="Custom Request"
+                    Command="{Binding NavigateCustomRequestPage}" />
+            <Button Text="Authentication Request"
+                    Command="{Binding NavigateAuthPage}"
+                    IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}" />
+            <Button Text="Unregistered Access Request"
                     Command="{Binding UnregisteredRequest}"
-                    IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}"/>
+                    IsEnabled="{Binding IsSessionAvailable, Converter={StaticResource InverseBooleanConverter}}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

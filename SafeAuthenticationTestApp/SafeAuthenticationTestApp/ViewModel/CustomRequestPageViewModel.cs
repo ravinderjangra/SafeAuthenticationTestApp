@@ -1,5 +1,5 @@
 ﻿using Rg.Plugins.Popup.Extensions;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeAuthenticationTestApp.Model;
 using SafeAuthenticationTestApp.View;
 using System;
