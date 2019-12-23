@@ -44,6 +44,9 @@ namespace SafeAuthenticationTestApp.Helpers
 
         public static async Task<(uint, string)> GenerateEncodedAuthRequest(
             bool appContainerPermission,
+            bool appGetBalance,
+            bool appTransferCoins,
+            bool appPerformMutation,
             List<ContainerPermissionsModel> containers,
             [Optional] AppExchangeInfo appExchangeInfo)
         {
@@ -54,6 +57,9 @@ namespace SafeAuthenticationTestApp.Helpers
             };
 
             authReq.AppContainer = appContainerPermission;
+            authReq.AppPermissionGetBalance = appGetBalance;
+            authReq.AppPermissionPerformMutations = appPerformMutation;
+            authReq.AppPermissionTransferCoins = appTransferCoins;
             foreach (var item in containers)
             {
                 if (item.IsRequested)

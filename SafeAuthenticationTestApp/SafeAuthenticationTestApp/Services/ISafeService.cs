@@ -9,7 +9,11 @@ namespace SafeAuthenticationTestApp.Services
     public interface ISafeService
     {
         Task<string> CreateAuthRequestAsync(
-            bool isAppContainerRequested, List<ContainerPermissionsModel> containers,
+            bool isAppContainerRequested,
+            bool appGetBalance,
+            bool appTransferCoins,
+            bool appPerformMutation,
+            List<ContainerPermissionsModel> containers,
             [Optional] AppExchangeInfo appExchangeInfo);
 
         Task<string> CreateContainerRequestAsync(

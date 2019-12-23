@@ -24,14 +24,14 @@
                         <SwitchCell Text="App Container"
                                     On="{Binding IsAppContainerRequested}"
                                     IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}"/>
-                        <SwitchCell Text="App Container"
-                                    On="{Binding IsAppContainerRequested}"
+                        <SwitchCell Text="Perform Mutation"
+                                    On="{Binding IsAppPerformMutationsRequested}"
                                     IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}" />
-                        <SwitchCell Text="App Container"
-                                    On="{Binding IsAppContainerRequested}"
+                        <SwitchCell Text="Get Balance"
+                                    On="{Binding IsAppGetBalanceRequested}"
                                     IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}" />
-                        <SwitchCell Text="App Container"
-                                    On="{Binding IsAppContainerRequested}"
+                        <SwitchCell Text="Transfer Coins"
+                                    On="{Binding IsAppTransferCoinsRequested}"
                                     IsEnabled="{Binding IsContainerRequest, Converter={StaticResource InverseBooleanConverter}}" />
                     </TableSection>
 

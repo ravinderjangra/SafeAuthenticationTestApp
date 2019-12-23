@@ -128,7 +128,7 @@ namespace SafeAuthenticationTestApp.ViewModel
 
                 if (IsAuthRequest)
                 {
-                    encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers, appExchangeInfo);
+                    // encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers, appExchangeInfo);
                 }
                 else
                 {

@@ -18,10 +18,19 @@ namespace SafeAuthenticationTestApp.Services
     {
         public async Task<string> CreateAuthRequestAsync(
             bool isAppContainerRequested,
+            bool appGetBalance,
+            bool appTransferCoins,
+            bool appPerformMutation,
             List<ContainerPermissionsModel> containers,
             [Optional] AppExchangeInfo appExchangeInfo)
         {
-            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedAuthRequest(isAppContainerRequested, containers, appExchangeInfo);
+            var (reqId, encodedReq) = await RequestHelper.GenerateEncodedAuthRequest(
+                isAppContainerRequested,
+                appGetBalance,
+                appTransferCoins,
+                appPerformMutation,
+                containers,
+                appExchangeInfo);
             return encodedReq;
         }
 

@@ -15,6 +15,13 @@ namespace SafeAuthenticationTestApp.ViewModel
         private INavigation _navigation;
         public bool IsContainerRequest { get; }
         public bool IsAppContainerRequested { get; set; }
+
+        public bool IsAppPerformMutationsRequested { get; set; }
+
+        public bool IsAppGetBalanceRequested { get; set; }
+
+        public bool IsAppTransferCoinsRequested { get; set; }
+
         public ICommand SetContainerPermission { get; private set; }
         public ICommand SendRequest { get; private set; }
 
@@ -48,7 +55,12 @@ namespace SafeAuthenticationTestApp.ViewModel
                     }
                     else
                     {
-                        encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers);
+                        encodedRequest = await RequestService.CreateAuthRequestAsync(
+                            IsAppContainerRequested,
+                            IsAppGetBalanceRequested,
+                            IsAppTransferCoinsRequested,
+                            IsAppPerformMutationsRequested,
+                            containers);
                     }
                     RequestService.SendRequest(encodedRequest, isUnregistered: false);
                     await _navigation.PopToRootAsync();
@@ -66,14 +78,6 @@ namespace SafeAuthenticationTestApp.ViewModel
             {
                 Containers = new ObservableCollection<ContainerPermissionsModel>();
             }
-
-            Containers.Add(new ContainerPermissionsModel("_documents"));
-            Containers.Add(new ContainerPermissionsModel("_downloads"));
-            Containers.Add(new ContainerPermissionsModel("_music"));
-            Containers.Add(new ContainerPermissionsModel("_pictures"));
-            Containers.Add(new ContainerPermissionsModel("_videos"));
-            Containers.Add(new ContainerPermissionsModel("_public"));
-            Containers.Add(new ContainerPermissionsModel("_publicNames"));
         }
     }
 }
