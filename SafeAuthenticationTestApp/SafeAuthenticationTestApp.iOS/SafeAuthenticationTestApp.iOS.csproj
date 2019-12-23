@@ -151,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaidSafe.SafeApp">
-      <Version>0.3.0-rc1</Version>
+      <Version>0.3.0-rc2</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.2.0.223</Version>
