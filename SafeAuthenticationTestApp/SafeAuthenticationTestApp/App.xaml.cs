@@ -21,10 +21,12 @@ namespace SafeAuthenticationTestApp
                 Device.InvokeOnMainThreadAsync(async () =>
                 {
                     var fileList = new List<(string, string)>
-                { ("log.toml", "log.toml") };
+                    {
+                        ("log.toml", "log.toml")
+                    };
                     var fileOps = DependencyService.Get<IPlatformService>();
                     await fileOps.TransferAssetsAsync(fileList);
-                    await Session.SetConfigurationFilePathAsync(fileOps.ConfigFilesPath);
+                    await Session.SetAppConfigurationDirectoryPathAsync(fileOps.ConfigFilesPath);
                     await Session.InitLoggingAsync($"{DateTime.Now.ToShortTimeString()}.log");
                 });
                 _isInitialized = true;
