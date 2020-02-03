@@ -90,7 +90,7 @@ namespace SafeAuthenticationTestApp.Services
                     //Create session object
                     var ipcMsg = decodeResult as UnregisteredIpcMsg;
                     await Application.Current.MainPage.DisplayAlert("Unregistred Request", $"Request granted", "OK");
-                    var session = await Session.AppConnectUnregisteredAsync(encodedRequest);
+                    var session = await Session.AppConnectAsync(Constants.AppId, encodedRequest);
                     DependencyService.Get<SafeAppService>().InitialiseSession(session, true);
                     MessagingCenter.Send(this, "UpdateUI");
                 }

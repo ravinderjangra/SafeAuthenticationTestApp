@@ -1,4 +1,8 @@
-﻿using SafeAuthenticationTestApp.ViewModel;
+﻿using System;
+using System.Collections.Generic;
+using SafeApp;
+using SafeAuthenticationTestApp.Services;
+using SafeAuthenticationTestApp.ViewModel;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,6 +13,7 @@ namespace SafeAuthenticationTestApp.View
     public partial class RequestPage : ContentPage
     {
         private RequestPageViewModel _viewModel;
+        
         public RequestPage()
         {
             InitializeComponent();
