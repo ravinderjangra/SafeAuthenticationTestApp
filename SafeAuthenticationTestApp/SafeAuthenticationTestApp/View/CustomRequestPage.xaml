@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="SafeAuthenticationTestApp.View.CustomRequestPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SafeAuthenticationTestApp.View.CustomRequestPage"
              xmlns:Converters="clr-namespace:SafeAuthenticationTestApp.Converters"
              x:Name="CustomRequestPageRef"
-             Visual="Material"
              Title="{Binding Title}"
-             Padding="20">
+             Padding="20"
+             Visual="Material">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -20,36 +20,101 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Spacing="10">
-                <StackLayout Orientation="Horizontal" HeightRequest="30">
-                    <Label Text="Use hardcoded app info: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch IsToggled="{Binding UseStaticAppInfo}" HorizontalOptions="End" VerticalOptions="Center" />
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Use hardcoded app info: "
+                           VerticalOptions="Center" />
+                    <Switch HorizontalOptions="End"
+                            IsToggled="{Binding UseStaticAppInfo}"
+                            VerticalOptions="Center" />
                 </StackLayout>
-                <Entry Placeholder="AppId"
-                       Text="{Binding AppId}"
+                <Entry IsReadOnly="{Binding UseStaticAppInfo}"
+                       Placeholder="AppId"
                        PlaceholderColor="{StaticResource PrimaryColor}"
-                       IsReadOnly="{Binding UseStaticAppInfo}" />
-                <Entry Placeholder="App Name"
-                       Text="{Binding AppName}"
+                       Text="{Binding AppId}" />
+                <Entry IsReadOnly="{Binding UseStaticAppInfo}"
+                       Placeholder="App Name"
                        PlaceholderColor="{StaticResource PrimaryColor}"
-                       IsReadOnly="{Binding UseStaticAppInfo}" />
-                <Entry Placeholder="Vendor"
-                       Text="{Binding AppVendor}"
+                       Text="{Binding AppName}" />
+                <Entry IsReadOnly="{Binding UseStaticAppInfo}"
+                       Placeholder="Vendor"
                        PlaceholderColor="{StaticResource PrimaryColor}"
-                       IsReadOnly="{Binding UseStaticAppInfo}" />
-                <StackLayout Orientation="Horizontal" HeightRequest="30">
-                    <Label Text="Is this a Auth Request: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch x:Name="ContainerRequestSwitch" IsToggled="{Binding IsAuthRequest}" HorizontalOptions="End" VerticalOptions="Center" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" HeightRequest="30">
-                    <Label Text="Create app container: " HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                    <Switch IsToggled="{Binding IsAppContainerRequested}"
+                       Text="{Binding AppVendor}" />
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Is this a Auth Request: "
+                           VerticalOptions="Center" />
+                    <Switch x:Name="ContainerRequestSwitch"
                             HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            IsEnabled="False">
+                            IsToggled="{Binding IsAuthRequest}"
+                            VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Create app container"
+                           VerticalOptions="Center" />
+                    <Switch HorizontalOptions="End"
+                            IsEnabled="False"
+                            IsToggled="{Binding IsAppContainerRequested}"
+                            VerticalOptions="Center">
                         <Switch.Triggers>
-                            <DataTrigger TargetType="Switch"
-                                         Binding="{Binding Source={x:Reference ContainerRequestSwitch},
-                                       Path=IsToggled}"
+                            <DataTrigger Binding="{Binding Source={x:Reference ContainerRequestSwitch}, Path=IsToggled}"
+                                         TargetType="Switch"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
+                </StackLayout>
+
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Perform Mutation"
+                           VerticalOptions="Center" />
+                    <Switch HorizontalOptions="End"
+                            IsEnabled="False"
+                            IsToggled="{Binding IsAppPerformMutationsRequested}"
+                            VerticalOptions="Center">
+                        <Switch.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Reference ContainerRequestSwitch}, Path=IsToggled}"
+                                         TargetType="Switch"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
+                </StackLayout>
+
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Get Balance"
+                           VerticalOptions="Center" />
+                    <Switch HorizontalOptions="End"
+                            IsEnabled="False"
+                            IsToggled="{Binding IsAppGetBalanceRequested}"
+                            VerticalOptions="Center">
+                        <Switch.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Reference ContainerRequestSwitch}, Path=IsToggled}"
+                                         TargetType="Switch"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Switch.Triggers>
+                    </Switch>
+                </StackLayout>
+
+                <StackLayout HeightRequest="30" Orientation="Horizontal">
+                    <Label HorizontalOptions="StartAndExpand"
+                           Text="Transfer Coins"
+                           VerticalOptions="Center" />
+                    <Switch HorizontalOptions="End"
+                            IsEnabled="False"
+                            IsToggled="{Binding IsAppTransferCoinsRequested}"
+                            VerticalOptions="Center">
+                        <Switch.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Reference ContainerRequestSwitch}, Path=IsToggled}"
+                                         TargetType="Switch"
                                          Value="True">
                                 <Setter Property="IsEnabled" Value="True" />
                             </DataTrigger>
@@ -58,7 +123,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal">
+            <!--<StackLayout Orientation="Horizontal">
                 <Label Text="Containers"
                        HeightRequest="20"
                        FontSize="18"
@@ -70,39 +135,37 @@
                                               NumberOfTapsRequired="1" />
                     </Image.GestureRecognizers>
                 </Image>
-            </StackLayout>
+            </StackLayout>-->
 
-            <ListView ItemsSource="{Binding Containers}"
-                      HasUnevenRows="True"
-                      ItemTapped="UnSelect_ListView">
+            <ListView HasUnevenRows="True"
+                      ItemTapped="UnSelect_ListView"
+                      ItemsSource="{Binding Containers}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid HeightRequest="35">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="7*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="7*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
-                                <Label Text="{Binding ContName}" VerticalTextAlignment="Center"/>
+                                <Label Text="{Binding ContName}" VerticalTextAlignment="Center" />
                                 <Image Grid.Column="1"
                                        Source="permissionOn"
                                        Style="{StaticResource ImageStyle}">
                                     <Image.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.AddContainerPermissioncommand}"
-                                                            CommandParameter="{Binding .}"
-                                                            NumberOfTapsRequired="1"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.AddContainerPermissioncommand}"
+                                                              CommandParameter="{Binding .}"
+                                                              NumberOfTapsRequired="1" />
                                     </Image.GestureRecognizers>
                                 </Image>
                                 <Image Grid.Column="2"
                                        Source="RemoveContainer"
                                        Style="{StaticResource ImageStyle}">
                                     <Image.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                                            Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.DeleteContainerPermissionCommand}"
-                                                            CommandParameter="{Binding .}"
-                                                            NumberOfTapsRequired="1"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference CustomRequestPageRef}, Path=BindingContext.DeleteContainerPermissionCommand}"
+                                                              CommandParameter="{Binding .}"
+                                                              NumberOfTapsRequired="1" />
                                     </Image.GestureRecognizers>
                                 </Image>
                             </Grid>
@@ -111,7 +174,9 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button HorizontalOptions="FillAndExpand" Text="{Binding Title, StringFormat='Send {0}'}" Command="{Binding SendRequestcommand}"/>
+            <Button Command="{Binding SendRequestcommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding Title, StringFormat='Send {0}'}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

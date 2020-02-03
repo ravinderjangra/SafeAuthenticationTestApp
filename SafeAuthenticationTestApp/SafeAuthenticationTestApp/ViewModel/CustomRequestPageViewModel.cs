@@ -65,6 +65,12 @@ namespace SafeAuthenticationTestApp.ViewModel
             }
         }
 
+        public bool IsAppPerformMutationsRequested { get; set; }
+
+        public bool IsAppGetBalanceRequested { get; set; }
+
+        public bool IsAppTransferCoinsRequested { get; set; }
+
         private INavigation _navigation;
         public bool IsAuthRequest { get; set; }
         public bool IsAppContainerRequested { get; set; }
@@ -77,6 +83,7 @@ namespace SafeAuthenticationTestApp.ViewModel
         public CustomRequestPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
+            IsAuthRequest = true;
             Title = $"Custom Request";
             InitialiseCommands();
 
@@ -128,7 +135,13 @@ namespace SafeAuthenticationTestApp.ViewModel
 
                 if (IsAuthRequest)
                 {
-                    // encodedRequest = await RequestService.CreateAuthRequestAsync(IsAppContainerRequested, containers, appExchangeInfo);
+                    encodedRequest = await RequestService.CreateAuthRequestAsync(
+                            IsAppContainerRequested,
+                            IsAppGetBalanceRequested,
+                            IsAppTransferCoinsRequested,
+                            IsAppPerformMutationsRequested,
+                            containers,
+                            appExchangeInfo);
                 }
                 else
                 {
